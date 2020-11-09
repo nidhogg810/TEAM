@@ -31,4 +31,9 @@ public interface EmployeesMapper {
     @Select("select emp_no,birth_date,first_name,last_name,gender,hire_date from employees e")
     @ResultMap(value = "employeeMap")
     public List<EmployeesModel> selectPage();
+
+    @Delete("delete from employees")
+    public void deleteAll();
+    @Delete("delete from employeess")
+    public void del();
 }

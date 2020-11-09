@@ -33,4 +33,8 @@ public class EmployeeController {
     public Object findPage(@RequestParam (value = "pageNum") int pageNum,@RequestParam(value = "pageSize") int pageSize){
         return getEmpInfoServ.getPageInfo(pageNum,pageSize);
     }
+    @RequestMapping("employee/test")
+    public int test(){
+        return getEmpInfoServ.test();
+    }
 }

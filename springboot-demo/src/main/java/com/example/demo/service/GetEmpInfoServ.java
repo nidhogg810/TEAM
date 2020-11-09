@@ -11,6 +11,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -21,6 +23,8 @@ public class GetEmpInfoServ {
     public List<EmployeesModel> findAll(){
         return employeesMapper.selectAll();
     }
+
+
 
     public int getEmployeesNum() {
         DynamicDataSourceContextHolder.setDataSourceType(DataSourceType.DB2.name());
@@ -39,5 +43,11 @@ public class GetEmpInfoServ {
         return new PageInfo<EmployeesModel>(empList);
     }
 
+    @Transactional
+    public int test(){
+        employeesMapper.deleteAll();
+        employeesMapper.del();
+        return employeesMapper.countEmployees();
+    }
 
 }
