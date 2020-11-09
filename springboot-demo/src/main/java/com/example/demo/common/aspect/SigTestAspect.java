@@ -14,15 +14,17 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class SigTestAspect {
-    @Pointcut("execution(public * com.example.demo.contorller.*.*(..))&&@annotation(com.example.demo.common.annotation.LogParam)")
+    @Pointcut("execution(public * com.example.demo.contorller.*.*(java.lang.String,..))&&@annotation(com.example.demo.common.annotation.LogParam)")
     public void validate(){}
     @Around("validate()")
-    public void dolog(ProceedingJoinPoint joinPoint){
-        Object params = joinPoint.getArgs();
+    public Object dolog(ProceedingJoinPoint joinPoint){
+        Object[] params = joinPoint.getArgs();
+        Object result = null;
         try {
-            joinPoint.proceed();
+            result = joinPoint.proceed(params);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+        return result;
     }
 }
