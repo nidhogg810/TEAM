@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AOPTestController {
     @RequestMapping("aoptest")
-    @LogParam
+    @LogParam(value = "aoptest")
     public String test(@RequestParam(value = "s") String s){
         return s+"success";
     }
