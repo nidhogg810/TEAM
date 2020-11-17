@@ -16,4 +16,24 @@ print("xs:")
 print(xs)
 #ys 1000*1000个元素
 print(xs.shape)
+
+#计算二元二次多项式 z=sqrt(x^2+y^2) 的值,并尝试可视化
+z = np.sqrt(xs ** 2 + ys ** 2)
+print("z:")
+print(z)
+print(z.shape)
+#可视化
+plt.imshow(z, cmap=plt.cm.gray); plt.colorbar()
+
+plt.title("Image plot of $\sqrt{x^2}+y^2$ for a grid of values")
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+#numpy.where操作对应于三元表达式 x if condition else y的向量版本
+xarr = np.array([1.1, 1.2, 1.3, 1.4, 1.5])
+yarr = np.array([2.1, 2.2, 2.3, 2.4, 2.5])
+cond = np.array([True,False,True,True,False])
+result = np.where(cond,xarr,yarr)
+print(result)
 # %%
