@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * @author yuhan
  * aspect for customized annotation
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class SigTestAspect {
-    @Pointcut("execution(public * com.example.demo.contorller.*.*(java.lang.String,..))&&@annotation(com.example.demo.common.annotation.LogParam)")
+    @Pointcut("@annotation(com.example.demo.common.annotation.LogParam)")
     public void validate(){}
     @Around("validate()")
     public Object dolog(ProceedingJoinPoint joinPoint){
@@ -30,7 +32,8 @@ public class SigTestAspect {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        String resultString = (String) result;
+        Map<String,Object> resultMap = (Map<String,Object>) result;
+        resultMap.put("aspect",s);
         return result;
     }
 }
