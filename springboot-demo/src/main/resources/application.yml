@@ -2,6 +2,14 @@ server:
   port: 8080
   servlet:
     context-path: /
+  ssl:
+    enabled: true
+    ciphers: TLS_RSA_WITH_AES_128_CBC_SHA256
+    protocol: TLS
+    enabled-protocols: TLSv1.2
+    key-store: /Users/yuhan/keystore/kstore.keystore
+    key-store-password: init234
+    key-store-type: JKS
 spring:
   profile: prod
   datasource:
