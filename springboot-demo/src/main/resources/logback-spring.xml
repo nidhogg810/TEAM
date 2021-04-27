@@ -76,7 +76,7 @@
     <logger name="com.example.demo.common.schedual" level="debug">
         <appender-ref ref="schedual"/>
     </logger>
-    <root level="trace">
+    <root level="debug">
         <appender-ref ref="console"/>
         <appender-ref ref="trace_file"/>
     </root>
