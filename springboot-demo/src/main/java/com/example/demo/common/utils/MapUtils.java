@@ -130,17 +130,27 @@ public class MapUtils {
         return result;
     }
 
-    public static boolean isPrimitive(Class clazz) throws NoSuchMethodException {
+    /**
+     * 判断类型是否是java基本数据类型、基本数据类型包装类、String其中的一种
+     * @param clazz
+     * @return
+     */
+    public static boolean isPrimitive(Class clazz) {
         if(clazz.isPrimitive()||clazz == String.class){
             return true;
         }
         try {
             return ((Class<?>) clazz.getField("TYPE").get(null)).isPrimitive();
         } catch (Exception e) {
+            log.debug("",e);
             return false;
         }
     }
-
+    /**
+     * 判断类型是否是java基本数据类型、基本数据类型包装类、String其中的一种
+     * @param obj
+     * @return
+     */
     public static boolean isPrimitive(Object obj) {
         if(obj instanceof String){
             return true;
@@ -148,6 +158,7 @@ public class MapUtils {
         try {
             return ((Class<?>) obj.getClass().getField("TYPE").get(null)).isPrimitive();
         } catch (Exception e) {
+            log.debug("",e);
             return false;
         }
     }
