@@ -2,14 +2,14 @@ server:
   port: 8080
   servlet:
     context-path: /
-  ssl:
-    enabled: true
-    ciphers: TLS_RSA_WITH_AES_128_CBC_SHA256
-    protocol: TLS
-    enabled-protocols: TLSv1.2
-    key-store: /Users/yuhan/keystore/kstore.keystore
-    key-store-password: init234
-    key-store-type: JKS
+#  ssl:
+#    enabled: true
+#    ciphers: TLS_RSA_WITH_AES_128_CBC_SHA256
+#    protocol: TLS
+#    enabled-protocols: TLSv1.2
+#    key-store: /Users/yuhan/keystore/kstore.keystore
+#    key-store-password: init234
+#    key-store-type: JKS
 spring:
   profile: prod
   datasource:
@@ -31,7 +31,13 @@ spring:
       maxLifetime: 180000
       idleTimeout: 60000
       connectionTimeout: 20000
-
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    ssl: false
+    timeout: 5000
+    password: 123
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/mytest
