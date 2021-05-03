@@ -40,7 +40,7 @@ public class EmployeeController {
     @Autowired
     EmployeesMapper  employeesMapper;
     @RequestMapping(value = "employee/test",method = RequestMethod.GET)
-    @Cacheable(value = CacheConstants.CONCURRENTMAP_CACHE,key = "#id")
+    @Cacheable(value = CacheConstants.CONCURRENTMAP_CACHE)
     public int test(@RequestParam(value = "id") String id){
         return employeesMapper.countEmployees();
     }
