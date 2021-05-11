@@ -1,0 +1,18 @@
+rules:
+  degrade:
+    - resource: 1
+      grade: 2
+      minRequestAmount: 100
+      timeWindow: 5
+      count: 0.1
+    - resource: 2
+      grade: 3
+      minRequestAmount: 200
+      timeWindow: 5
+      count: 0.1
+  flow:
+    - resource: 1
+      grade: 2
+      minRequestAmount: 100
+      timeWindow: 5
+      count: 0.1

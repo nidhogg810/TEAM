@@ -12,6 +12,8 @@ server:
 #    key-store-type: JKS
 spring:
   profile: prod
+  application:
+    name: mySpringbootDemo
   datasource:
     db1:
       driver-class-name: com.mysql.jdbc.Driver
@@ -68,3 +70,8 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+sentinel:
+  dashboard:
+    server: localhost:9090
+
+

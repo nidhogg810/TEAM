@@ -1,5 +1,8 @@
-package com.example.demo.common.datasource;
+package com.example.demo.common.config;
 
+import com.example.demo.common.datasource.DataSourceType;
+import com.example.demo.common.datasource.DynamicDataSource;
+import com.example.demo.common.datasource.HikariProperties;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -36,8 +39,8 @@ public class HikariConfig {
 
     @Primary
     @Bean(name = "dynamicDataSource")
-    public DynamicDataSource dataSource( DataSource dataSourceDb1,
-                                         DataSource dataSourceDb2)
+    public DynamicDataSource dataSource(DataSource dataSourceDb1,
+                                        DataSource dataSourceDb2)
     {
         //动态数据源
         Map<Object, Object> targetDataSources = new HashMap<>();

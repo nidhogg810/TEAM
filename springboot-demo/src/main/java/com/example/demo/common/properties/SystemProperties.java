@@ -13,10 +13,10 @@ import java.sql.*;
 @DependsOn("springContextUtils")
 @Component
 @Slf4j
-public class Properties {
+public class SystemProperties {
 
     private static String SQL = "select a.paramname,a.paramvalue from PARAM a";
-    public Properties(){
+    public SystemProperties(){
         ApplicationContext ctx = SpringContextUtils.getApplicationContext();
         Environment env = ctx.getEnvironment();
         String DB_DRIVER = env.getProperty("spring.datasource.db1.driver-class-name");

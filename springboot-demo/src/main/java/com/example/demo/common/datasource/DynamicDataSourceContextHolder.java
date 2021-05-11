@@ -53,6 +53,7 @@ public class DynamicDataSourceContextHolder {
         CONTEXT_HOLDER = DEFAULT_DATASOURCE;
     }
 
+
     public static void resetDataSourceType(int ThreadFlag){
         THREAD_CONTEXT_HOLERS.set(DEFAULT_DATASOURCE);
         if (0 == ThreadFlag){
