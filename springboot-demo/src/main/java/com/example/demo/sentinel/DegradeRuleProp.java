@@ -3,7 +3,7 @@ package com.example.demo.sentinel;
 import lombok.Data;
 
 @Data
-public class DegradeRule {
+public class DegradeRuleProp {
     private String resource;
     private int grade;
     private int minRequestAmount;

@@ -1,5 +1,6 @@
 package com.example.demo.sentinel;
 
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,8 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
-@ConfigurationProperties(prefix = "degrade")
-public class DegradeRulesProperties {
-    private List<DegradeRule> rules;
+@ConfigurationProperties(prefix = "rules")
+public class RulesProperties {
+    private List<DegradeRuleProp> degrade;
+    private List<FlowRuleProp> flow;
 }
