@@ -2,6 +2,7 @@ package com.example.demo.common.utils;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.common.constants.SystemConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +18,8 @@ import java.util.Map;
 @Slf4j
 public class MapUtils {
     /**
+     * 如果obj为null，则同样返回null
+     * 如果obj是基本数据类型或者String，则返回自身，而不是Map
      * 将简单的POJO转化为map，
      * key的名字为对应的property名
      * 注意如果没有public的get方法，则没有对应map字段
@@ -24,12 +27,15 @@ public class MapUtils {
      * @return 转化结果的Map对象
      * @throws Exception
      */
-    public static Map<String, Object> objectToMap(Object obj) throws Exception {
+    public static Object objectToMap(Object obj) throws Exception {
         if(obj == null) {
             return null;
         }
+        if(isPrimitive(obj)){
+            return obj;
+        }
         Map<String, Object> map = new HashMap<String, Object>();
-
+        map.put(SystemConstants.SERIALIZE_MAP_CLASSNAME,obj.getClass().getName());
         BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
         for (PropertyDescriptor property : propertyDescriptors) {
@@ -49,6 +55,23 @@ public class MapUtils {
     }
 
     /**
+     * 将从缓存中获得的内容，反序列化为POJO
+     * @param value 返回的value类型可能为：1、null；2、基本数据类型以及String；3、map类型
+     * @return value==null，返回null；value为基本数据类型以及String，返回value本身；3、map类型转化为POJO
+     */
+    public static Object parse(Object value) throws ClassNotFoundException, IntrospectionException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        if(value == null){
+            return null;
+        }
+        if(isPrimitive(value)){
+            return value;
+        }
+        Map<String,Object> valMap = (Map<String, Object>) value;
+        Class clazz = Class.forName(valMap.get(SystemConstants.SERIALIZE_MAP_CLASSNAME).toString());
+        return map2Object(valMap,clazz);
+    }
+
+    /**
      * 将map转化为指定类的对象，
      * key的名字为对应的property名
      * 注意如果对应字段没有public的set方法则对应属性为默认值
@@ -63,8 +86,6 @@ public class MapUtils {
      * @throws IntrospectionException
      */
     public static <T> T map2Object(Map<String,Object> map,Class<T> classz) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, IntrospectionException {
-//        ObjectMapper mapper = new ObjectMapper();
-//        return mapper.convertValue(map, classz);
 
         T obj = classz.getDeclaredConstructor().newInstance();
         BeanInfo beanInfo = Introspector.getBeanInfo(classz);
@@ -141,8 +162,11 @@ public class MapUtils {
         }
         try {
             return ((Class<?>) clazz.getField("TYPE").get(null)).isPrimitive();
+        } catch (NoSuchFieldException exception){
+            log.warn("",exception);
+            return false;
         } catch (Exception e) {
-            log.debug("",e);
+            log.debug("com.example.demo.common.utils.MapUtils#isPrimitive(Class) Error!",e);
             return false;
         }
     }
@@ -157,8 +181,11 @@ public class MapUtils {
         }
         try {
             return ((Class<?>) obj.getClass().getField("TYPE").get(null)).isPrimitive();
+        } catch (NoSuchFieldException exception){
+            log.warn("",exception);
+            return false;
         } catch (Exception e) {
-            log.debug("",e);
+            log.debug("com.example.demo.common.utils.MapUtils#isPrimitive(Object) Error!",e);
             return false;
         }
     }

@@ -30,12 +30,13 @@ public class SentinelConfig {
 
     @Bean
     public SentinelResourceAspect sentinelResourceAspect(){
+        initRules();
         return new SentinelResourceAspect();
     }
     /**
      * 以下进行规则配置，主要有流量控制规则 (FlowRule)、熔断降级规则 (DegradeRule)、系统保护规则 (SystemRule)、访问控制规则 (AuthorityRule)
      */
-    @PostConstruct
+//    @PostConstruct
     private void initRules(){
         log.info("start load Sentinel Rules!");
         initFlowRules();
