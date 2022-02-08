@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 public class JdbcController {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    protected JdbcTemplate jdbcTemplate;
     @RequestMapping("jdbcSelect")
     public String jdbcSelect(){
         String sql = "select e.emp_no from employees e order by e.emp_no asc";

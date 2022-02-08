@@ -25,6 +25,8 @@ public class SigTestAspect {
         Object[] params = joinPoint.getArgs();
         Object result = null;
         MethodSignature ms = (MethodSignature) joinPoint.getSignature();
+        String shortString = ms.toShortString();
+        String longString = ms.toLongString();
         LogParam logParam = ms.getMethod().getAnnotation(LogParam.class);
         String s = logParam.value();
         try {

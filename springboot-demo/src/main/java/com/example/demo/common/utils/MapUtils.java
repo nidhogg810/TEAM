@@ -17,41 +17,25 @@ import java.util.HashMap;
 import java.util.Map;
 @Slf4j
 public class MapUtils {
-    /**
+    /**使用jackson
      * 如果obj为null，则同样返回null
-     * 如果obj是基本数据类型或者String，则返回自身，而不是Map
-     * 将简单的POJO转化为map，
+     * 将简单的POJO转化为JSON字符串，
      * key的名字为对应的property名
      * 注意如果没有public的get方法，则没有对应map字段
      * @param obj 需要转化的POJO对象
-     * @return 转化结果的Map对象
+     * @return 转化结果的JSON字符串
      * @throws Exception
      */
     public static Object objectToMap(Object obj) throws Exception {
         if(obj == null) {
             return null;
         }
-        if(isPrimitive(obj)){
-            return obj;
-        }
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(SystemConstants.SERIALIZE_MAP_CLASSNAME,obj.getClass().getName());
-        BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
-        PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        for (PropertyDescriptor property : propertyDescriptors) {
-            String key = property.getName();
-            if (key.compareToIgnoreCase("class") == 0) {
-                continue;
-            }
-            Method getter = property.getReadMethod();
-            Object value = getter!=null ? getter.invoke(obj) : null;
-            if(!isPrimitive(value)){
-                value = objectToMap(value);
-            }
-            map.put(key, value);
-        }
-
-        return map;
+        StringBuffer resultJsonStr = new StringBuffer();
+        resultJsonStr.append(obj.getClass().getName());
+        resultJsonStr.append(":");
+        ObjectMapper mapper = new ObjectMapper();
+        resultJsonStr.append(mapper.writeValueAsString(obj));
+        return resultJsonStr.toString();
     }
 
     /**

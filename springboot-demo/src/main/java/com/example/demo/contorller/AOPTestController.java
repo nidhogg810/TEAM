@@ -13,7 +13,7 @@ public class AOPTestController {
     @Autowired
     AopTestServ aopTestServ;
     @RequestMapping("aoptest")
-//    @LogParam(value = "aoptest")
+    @LogParam(value = "aoptest")
     public String test(@RequestParam(value = "s") String s){
         Map<String,Object> map = new HashMap<>();
         map.put("test","ssst");
