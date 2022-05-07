@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +35,7 @@ public class CrontabUtil {
      * @param cron cron exp
      * @return true if valid
      */
+    @Transactional
     public boolean checkValid(String cron) {
         try {
             CronDefinition cronDefinition = CronDefinitionBuilder.instanceDefinitionFor(CronType.SPRING);

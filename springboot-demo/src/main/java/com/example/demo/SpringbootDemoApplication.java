@@ -1,5 +1,4 @@
 package com.example.demo;
-
 import com.alibaba.csp.sentinel.init.InitExecutor;
 import com.example.demo.cache.annotation.EnableHCaching;
 import org.springframework.boot.SpringApplication;

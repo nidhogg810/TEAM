@@ -1,2 +1,4 @@
-package com.example.demo;public class Archive {
+package com.example.demo;
+
+public interface Archive {
 }
